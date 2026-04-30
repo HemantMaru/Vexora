@@ -1,7 +1,6 @@
 import sharp from "sharp";
 import productModel from "../models/Product.model.js";
 import { uploadFile } from "../services/storage.service.js";
-import z, { string } from "zod";
 import { containsBadWords } from "../utils/profanityFilter.js";
 import userModel from "../models/auth.models.js";
 

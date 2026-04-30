@@ -7,14 +7,24 @@ import morgan from "morgan";
 import inquiryRouter from "./routes/inquiry.routes.js";
 import subscribeRouter from "./routes/subscribe.routes.js";
 import cartRouter from "./routes/cart.routes.js";
-import { config } from "./config/config.js";
+
 let app = express();
 app.use(express.json());
 app.use(morgan("dev"));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://vexora-kohl.vercel.app",
+];
+
 app.use(
   cors({
-    origin: config.CLIENT_URL,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS blocked"));
+      }
+    },
     credentials: true,
   }),
 );

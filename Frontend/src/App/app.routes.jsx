@@ -12,7 +12,7 @@ import Register from "../Features/Auth/Pages/Register.jsx";
 import AddProduct from "../Features/Seller/Pages/AddProduct";
 import SellerProducts from "../Features/Seller/Pages/SellerProducts.jsx";
 import SellerLayout from "../Features/layout/SellerLayout.jsx";
-import { Protected } from "../Features/Auth/components/protected.jsx";
+import { Protected } from "../Features/Auth/components/Protected.jsx";
 import SellerDashboard from "../Features/Seller/Pages/SellerDashboard.jsx";
 export const routes = createBrowserRouter([
   {

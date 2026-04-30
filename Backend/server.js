@@ -7,3 +7,7 @@ MongooseConnect();
 app.listen(PORT, () => {
   console.log("server is running on port" + PORT);
 });
+
+app.get("/", (req, res) => {
+  res.send("Vexora API is running 🚀");
+});

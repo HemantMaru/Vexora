@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  /* Light Mode (Default) */
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f4f5; /* clean light gray */
+    --text-primary: #000000;
+    --text-secondary: #71717a;
+    --border-color: #e4e4e7;
+    --btn-bg: #000000;
+    --btn-text: #ffffff;
+    --nav-overlay: #ffffff;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #171717;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --border-color: #262626;
+    --btn-bg: #ffffff;
+    --btn-text: #000000;
+    --nav-overlay: #0a0a0a;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+::selection {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  text-shadow: none;
+}

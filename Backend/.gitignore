@@ -1,0 +1,6 @@
+node_modules
+.env
+dist
+logs
+*.log
+src/utils/words.js

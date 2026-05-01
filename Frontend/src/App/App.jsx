@@ -4,9 +4,11 @@ import { routes } from "./app.routes";
 import { useAuth } from "../Features/Auth/Hook/useAuth";
 import { useSelector } from "react-redux";
 import { useCart } from "../Features/cart/Hook/useCart";
+import { useProducts } from "../Features/Dashboard/Hook/useProducts";
 
 const App = () => {
   const { handleGetMe } = useAuth();
+  const { handleGetAllProducts } = useProducts();
   const { fetchCart } = useCart();
   const user = useSelector((state) => state.auth.user);
 
@@ -17,6 +19,7 @@ const App = () => {
   }, [user]);
   useEffect(() => {
     handleGetMe();
+    handleGetAllProducts();
   }, []);
 
   return <RouterProvider router={routes} />;

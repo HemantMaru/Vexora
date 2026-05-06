@@ -56,4 +56,5 @@ productRouter.put(
   productUpload,
   updateProduct,
 );
+
 export default productRouter;

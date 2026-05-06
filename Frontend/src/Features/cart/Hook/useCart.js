@@ -6,7 +6,11 @@ import {
   addToCartApi,
   removeCartApi,
   updateCartApi,
+  createOrder,
+  verifyPaymentApi,
+  getMyOrdersApi,
 } from "../services/cart.api.js";
+import { useState } from "react";
 
 export const useCart = () => {
   const dispatch = useDispatch();
@@ -41,9 +45,45 @@ export const useCart = () => {
     try {
       const res = await updateCartApi(data);
       dispatch(setCart(res.cart.items));
-      toast.success("Cart updated! ✅"); // 👈 Success toast
+      toast.success("Cart updated! ✅"); //  Success toast
     } catch (error) {
-      toast.error("Cart not update!"); // 👈 Error toast
+      toast.error("Cart not update!"); //  Error toast
+    }
+  };
+
+  const handleCreateOrder = async () => {
+    try {
+      const res = await createOrder();
+
+      toast.success("order Created! ✅"); //  Success toast
+      return res;
+    } catch (error) {
+      toast.error("order not successfully!"); //  Error toast
+    }
+  };
+
+  const handleVerifyPayment = async (data) => {
+    try {
+      const res = await verifyPaymentApi(data);
+      toast.success("Payment Verified ✅");
+      return res;
+    } catch (err) {
+      toast.error("Verification failed ❌");
+    }
+  };
+
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleFetchOrders = async () => {
+    try {
+      setLoading(true);
+      const data = await getMyOrdersApi();
+      setOrders(data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,5 +92,10 @@ export const useCart = () => {
     handleAddToCart,
     handleRemove,
     handleUpdate,
+    handleCreateOrder,
+    handleVerifyPayment,
+    orders,
+    loading,
+    handleFetchOrders,
   };
 };

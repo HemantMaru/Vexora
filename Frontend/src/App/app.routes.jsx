@@ -14,6 +14,8 @@ import SellerProducts from "../Features/Seller/Pages/SellerProducts.jsx";
 import SellerLayout from "../Features/layout/SellerLayout.jsx";
 import { Protected } from "../Features/Auth/components/Protected.jsx";
 import SellerDashboard from "../Features/Seller/Pages/SellerDashboard.jsx";
+import Orders from "../Features/Dashboard/Pages/Orders.jsx";
+import OrderSuccess from "../Features/Dashboard/Pages/OrderSuccess.jsx";
 export const routes = createBrowserRouter([
   {
     element: <MainLayout />,
@@ -41,6 +43,14 @@ export const routes = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/order-success",
+        element: <OrderSuccess />,
+      },
+      {
+        path: "/orders-history",
+        element: <Orders />,
       },
     ],
   },

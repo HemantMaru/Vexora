@@ -24,3 +24,17 @@ export const updateCartApi = async (data) => {
   const res = await api.put("/api/cart/update", data);
   return res.data;
 };
+
+export const createOrder = async () => {
+  const res = await api.post("/api/cart/payment/create-order");
+  return res.data;
+};
+export const verifyPaymentApi = async (data) => {
+  const res = await api.post("/api/cart/verify", data);
+  return res.data;
+};
+
+export const getMyOrdersApi = async () => {
+  const res = await api.get("/api/cart/my-orders");
+  return res.data;
+};

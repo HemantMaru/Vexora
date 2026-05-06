@@ -1,6 +1,6 @@
 import cartModel from "../models/cart.model.js";
 import productModel from "../models/Product.model.js";
-
+import { razorInstance } from "../services/razorpay.service.js";
 export const addToCart = async (req, res) => {
   try {
     const { productId, variantId, quantity } = req.body;
@@ -208,5 +208,62 @@ export const getCart = async (req, res) => {
     res.status(500).json({
       message: "Something went wrong",
     });
+  }
+};
+
+import Order from "../models/order.model.js";
+
+export const createOrder = async (req, res) => {
+  try {
+    const cart = await cartModel.findOne({ user: req.user._id });
+
+    let total = 0;
+    const orderItems = [];
+
+    for (let item of cart.items) {
+      const product = await productModel.findById(item.product);
+      const variant = product.variants.id(item.variant);
+
+      if (!variant) {
+        return res.status(400).json({ message: "Variant not found" });
+      }
+
+      total += variant.price.amount * item.quantity;
+
+      orderItems.push({
+        product: item.product,
+        variantId: item.variant,
+        name: product.title,
+        price: variant.price.amount,
+        quantity: item.quantity,
+        image: variant.image[0],
+      });
+    }
+
+    // Razorpay order
+    const razorOrder = await razorInstance.orders.create({
+      amount: total * 100,
+      currency: "INR",
+      receipt: "receipt_" + Date.now(),
+    });
+
+    //  Save in DB
+    const order = await Order.create({
+      user: req.user._id,
+      items: orderItems,
+      totalAmount: total,
+      payment: {
+        razorpay_order_id: razorOrder.id,
+        status: "pending",
+      },
+    });
+
+    res.json({
+      razorOrder,
+      dbOrderId: order._id,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error creating order" });
   }
 };

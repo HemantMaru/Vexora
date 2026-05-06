@@ -21,6 +21,12 @@ if (!process.env.GOOGLE_USER) {
 if (!process.env.CLIENT_URL) {
   throw new Error("CLIENT_URL is not defined in environment variable");
 }
+if (!process.env.RAZORPAY_KEY_ID) {
+  throw new Error("RAZORPAY_KEY_ID is not defined in environment variable");
+}
+if (!process.env.RAZORPAY_KEY_SECRET) {
+  throw new Error("RAZORPAY_KEY_SECRET is not defined in environment variable");
+}
 
 export const config = {
   MONGO_URI: process.env.MONGO_URI,
@@ -29,4 +35,6 @@ export const config = {
   GOOGLE_PASSWORD: process.env.GOOGLE_PASSWORD,
   GOOGLE_USER: process.env.GOOGLE_USER,
   CLIENT_URL: process.env.CLIENT_URL,
+  RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
+  RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
 };

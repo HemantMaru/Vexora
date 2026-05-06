@@ -7,7 +7,8 @@ import morgan from "morgan";
 import inquiryRouter from "./routes/inquiry.routes.js";
 import subscribeRouter from "./routes/subscribe.routes.js";
 import cartRouter from "./routes/cart.routes.js";
-
+import session from "express-session";
+import passport from "./config/Passport.js";
 let app = express();
 app.use(express.json());
 app.use(morgan("dev"));
@@ -15,6 +16,17 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://vexora-kohl.vercel.app",
 ];
+
+app.use(
+  session({
+    secret: "supersecret",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
   cors({

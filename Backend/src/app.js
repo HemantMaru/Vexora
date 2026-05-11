@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://vexora-kohl.vercel.app",
+  "https://vexora-in.vercel.app",
 ];
 
 app.use(
